@@ -32,7 +32,7 @@ class App extends PureComponent {
     );
   }
 
-  // method takes care of rendering a list of Profiles based on the users array of our store
+  // method renders a list of Profiles based on the users array of our store
   renderProfiles() {
     return this.props.store.users.map(user => (
 	    <Profile
