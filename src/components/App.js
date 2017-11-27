@@ -1,20 +1,59 @@
-import React, { Component } from 'react';
-import '../styles/App.css';
+// PureComponent is exactly like React.Component, but implements shouldComponentUpdate() with a shallow prop and state comparison
+import React, { PureComponent } from 'react';
+// MobX has its own set of PropTypes
+import { observer, PropTypes } from 'mobx-react';
+import _ from 'lodash';
 
-class App extends Component {
-  render() {
+import Selection from './selection';
+import Profile from './profile';
+
+const propTypes = {
+  store: PropTypes.object
+};
+
+// observer is used to modify an existing component so that it responds to changes in a MobX Store
+@observer
+class App extends PureComponent {
+  componentWillMount() {
+    this.props.store.getUsers();
+  }
+
+  // decides when to render the Selection and close button
+  renderSelection() {
+    if (_.isEmpty(this.props.store.selectedUser)) return null;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className='selection'>
+      	<Selection user={this.props.store.selectedUser}/>
+      	<button onClick={this.props.store.clearSelectedUser}>
+          Close Profile
+        </button>
       </div>
     );
   }
+
+  // method takes care of rendering a list of Profiles based on the users array of our store
+  renderProfiles() {
+    return this.props.store.users.map(user => (
+	    <Profile
+		    selected = {user.id === this.props.store.selectedId}
+        key = {user.id}
+		    label = {user.name}
+        onClick = { () => {this.props.store.selectUser(user)} }
+	    />
+    ));
+  }
+
+  render() {
+  	return (
+  	  <div>
+    		<h3>Employee Directory</h3>
+    		{this.renderSelection()}
+    		{this.renderProfiles()}
+  	  </div>
+  	);
+  }
 }
 
+App.propTypes = propTypes;
 export default App;
