@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react';
 import { observer, PropTypes } from 'mobx-react';
 import _ from 'lodash';
 
-import Selection from './selection';
-import Profile from './profile';
+import Selection from './Selection';
+import Profile from './Profile';
 
 const propTypes = {
   store: PropTypes.object
