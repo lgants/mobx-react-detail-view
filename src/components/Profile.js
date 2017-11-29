@@ -9,7 +9,7 @@ const propTypes = {
 };
 
 const Profile = ({ onClick, label, selected }) => {
-  // If it's selected, highlight it.
+  // highlights it if selected
   const classes = selected ? 'bold' : '';
   return (
       <li onClick={ onClick } className={classes}>
