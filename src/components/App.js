@@ -2,7 +2,7 @@
 // import React, { PureComponent } from 'react';
 import React, { Component } from 'react';
 // MobX has its own set of PropTypes
-import { observer, PropTypes } from 'mobx-react';
+import { observer, PropTypes, inject } from 'mobx-react';
 import _ from 'lodash';
 
 import Selection from './Selection';
@@ -12,6 +12,7 @@ const propTypes = {
   store: PropTypes.observableObject
 };
 
+@inject("store")
 // observer is used to modify an existing component so that it responds to changes in a MobX Store
 @observer
 class App extends Component {
