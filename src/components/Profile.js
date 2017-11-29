@@ -9,10 +9,10 @@ const propTypes = {
 };
 
 const Profile = ({ onClick, label, selected }) => {
-  // highlights it if selected
-  const classes = selected ? 'bold' : '';
+  // make fontweight bold if user selected
+  const fontWeight = selected ? 'bold' : 'normal';
   return (
-      <li onClick={ onClick } className={classes}>
+      <li onClick={ onClick } style={{fontWeight: fontWeight}}>
         { label }
       </li>
   );

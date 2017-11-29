@@ -1,5 +1,6 @@
 // PureComponent is exactly like React.Component, but implements shouldComponentUpdate() with a shallow prop and state comparison
-import React, { PureComponent } from 'react';
+// import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 // MobX has its own set of PropTypes
 import { observer, PropTypes } from 'mobx-react';
 import _ from 'lodash';
@@ -8,12 +9,12 @@ import Selection from './Selection';
 import Profile from './Profile';
 
 const propTypes = {
-  store: PropTypes.object
+  store: PropTypes.observableObject
 };
 
 // observer is used to modify an existing component so that it responds to changes in a MobX Store
 @observer
-class App extends PureComponent {
+class App extends Component {
   componentWillMount() {
     this.props.store.getUsers();
   }

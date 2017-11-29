@@ -2,7 +2,7 @@
 // actions - functions that are allowed to modify state in strict mode
 // computed observables - pieces of state that are derived from observables
 // useStrict - a method used to activate strict mode
-import { observable, action, computed, useStrict } from 'mobx';
+import { observable, action, computed, useStrict, autorun } from 'mobx';
 import axios from 'axios';
 
 // strict mode enforces that all modifications to the observable state must be made by actions; it adds a little bit more predictability to the system
@@ -39,6 +39,11 @@ class UserStore {
 }
 
 const store = new UserStore();
+
+autorun(() => {
+  let print = store.selectedUser.id ? `Selected User ID: ${store.selectedUser.id}` : 'No User Selected';
+  console.log(print);
+})
 
 export default store;
 export { UserStore };
